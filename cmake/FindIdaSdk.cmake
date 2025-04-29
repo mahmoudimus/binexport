@@ -327,7 +327,11 @@ function(_ida_plugin name ea64 link_script)  # ARGN contains sources
 
   set_target_properties(${t} PROPERTIES PREFIX "" SUFFIX "")
   if(ea64)
-    target_link_libraries(${t} ida64)
+    if(IDA_SDK_VERSION LESS 900)
+      target_link_libraries(${t} ida64)
+    else()
+      target_link_libraries(${t} ida)
+    endif()
   else()
     target_link_libraries(${t} ida32)
   endif()
