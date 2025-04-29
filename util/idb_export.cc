@@ -72,6 +72,25 @@ absl::Status ExportDatabase(const std::string& idb_path,
     const std::string ida_exe = "ida";
   #endif
 #endif
+  // Log IDA SDK version and executable path for debugging
+  #ifdef _WIN32
+  const char* platform = "Windows";
+  #elif defined(__APPLE__)
+  const char* platform = "macOS";
+  #elif defined(__linux__)
+  const char* platform = "Linux";
+  #else
+  const char* platform = "Unknown";
+  #endif
+
+  #if IDA_SDK_VERSION < 900
+  absl::PrintF("IDA SDK Version: %d (< 900), Platform: %s, Using %s-bit IDA: %s\n", 
+               IDA_SDK_VERSION, platform, is_64bit ? "64" : "32", ida_exe.c_str());
+  #else
+  absl::PrintF("IDA SDK Version: %d (>= 900), Platform: %s, Using unified IDA: %s\n", 
+               IDA_SDK_VERSION, platform, ida_exe.c_str());
+  #endif
+
   std::vector<std::string> args;
   args.push_back(JoinPath(options.ida_dir, ida_exe));
   args.push_back("-A");

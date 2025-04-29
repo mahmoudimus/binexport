@@ -263,6 +263,7 @@ elseif(WIN32)
     PATHS "${IdaSdk_DIR}/lib" PATH_SUFFIXES ${_ida64_suffixes}
     NO_DEFAULT_PATH REQUIRED
   )
+  message(STATUS "IdaSdk_LIB64 = ${IdaSdk_LIB64}")
   add_library(ida64 SHARED IMPORTED)
   set_target_properties(ida64 PROPERTIES IMPORTED_LOCATION "${IdaSdk_LIB64}")
   set_target_properties(ida64 PROPERTIES IMPORTED_IMPLIB "${IdaSdk_LIB64}")
