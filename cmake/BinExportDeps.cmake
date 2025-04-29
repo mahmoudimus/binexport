@@ -153,6 +153,8 @@ find_package(Boost 1.83 REQUIRED)
 find_package(Git)
 if(BINEXPORT_ENABLE_IDAPRO)
   find_package(IdaSdk REQUIRED)
+  # Expose the SDK version to C++ as a preprocessor define
+  add_compile_definitions(IDA_SDK_VERSION=${IDA_SDK_VERSION})
 endif()
 
 #set(BUILD_TESTING ${BINEXPORT_SAVE_BUILD_TESTING})
